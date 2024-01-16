@@ -1,16 +1,12 @@
-const title = document.getElementsByTagName("title");
-
-let fetchRes = fetch('http://api/v1/object/:id', {
-    mode: 'cors',
-    method: 'GET', 
-    headers: {
-        'Content-Type': 'application/json'
-       }
-    }).then(function(response) {
-        return response.json();
-    }).then(function(response) {
-        console.log(response.data.title);
-        })
-    .catch(function(err) {
-        return err.json();
+async function objectTag(url) {
+    url = 'http://localhost:3000/api/objects';
+    const response = await fetch(url, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
+    const data = await response.json();
+    console.log(data);
+  };

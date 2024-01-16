@@ -7,8 +7,7 @@ router.get('/', object_controller.object_index)
 
 router.get('/object/:id', object_controller.object_detail);
 
-//router.get ('/objects', object_controller.object_list);
-// left above comment alone as i'd like to refactor index for home path
+router.get('/objects', object_controller.object_list);
 
 router.post('/object/create', object_controller.object_create);
 
