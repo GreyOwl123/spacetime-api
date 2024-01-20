@@ -1,7 +1,13 @@
 const Object = require("../models/object");
 const { body, validationResult } = require("express-validator");
 
-// Object Functions
+
+exports.object_index = (req, res, next) => {
+  res.status(200).json({
+      message: "Successful",
+      title: "Space Time",
+  } );
+}
 
 exports.object_detail = async (req, res, next) => {
     try {
@@ -18,7 +24,7 @@ exports.object_detail = async (req, res, next) => {
     }
 }
 
-exports.object_index = (req, res, next) => {
+exports.object_list = (req, res, next) => {
     Object.find()
     .then(function (objects) {
       res.status(200).json({
