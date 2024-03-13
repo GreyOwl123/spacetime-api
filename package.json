@@ -6,7 +6,6 @@
     "test": "jest",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "client": "npm start --prefix client",
     "serverstart": "DEBUG=spacetime-api:* npm run devstart"
   },
   "dependencies": {
