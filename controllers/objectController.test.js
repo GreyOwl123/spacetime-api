@@ -12,5 +12,3 @@ test("object detail route works", done => {
     .expect("Content-Type", /json/)
     .expect(200, done);
  });
-
-
