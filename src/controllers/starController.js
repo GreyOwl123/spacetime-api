@@ -2,11 +2,11 @@ import Star from "../models/star"
 import { body, validationResult } from "express-validator";
 
 
-exports.index = (req, res, next) => {
+exports.index = (req, res) => {
   res.status(200).json({
       message: "Successful",
       title: "Space Time",
-  } );
+  });
 }
 
 exports.star_detail = async (req, res, next) => {
