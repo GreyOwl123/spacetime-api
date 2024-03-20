@@ -23,14 +23,16 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
-app.use(logger('dev'));
+if (process.env.NODE_ENV != 'test') {
+   app.use(logger('dev'));
+}
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/', express.static(path.join(__dirname, 'public/htmls')));
 
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 app.use('/', indexRouter);
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/htmls', 'index.html')));

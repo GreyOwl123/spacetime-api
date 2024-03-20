@@ -1,35 +1,35 @@
-const Object = require("../models/object");
-const { body, validationResult } = require("express-validator");
+import Star from "../models/star"
+import { body, validationResult } from "express-validator";
 
 
-exports.object_index = (req, res, next) => {
+exports.index = (req, res, next) => {
   res.status(200).json({
       message: "Successful",
       title: "Space Time",
   } );
 }
 
-exports.object_detail = async (req, res, next) => {
+exports.star_detail = async (req, res, next) => {
     try {
-       const object = await Object.findById(req.params.id);
+       const star = await Star.findById(req.params.id);
         res.status(200).json({
             message: "Successful",
-            object,
+            star,
         });
     } catch (err) {
         res.status(401).json({
             message: "Failure",
             error: err.message
-        });
-    }
+        });  
+     }
 }
 
-exports.object_list = (req, res, next) => {
-    Object.find()
-    .then(function (objects) {
+exports.star_list = (req, res, next) => {
+    Star.find()
+    .then(function (stars) {
       res.status(200).json({
         message: "Successful",
-        objects,
+        stars,
       });
     })
     .catch(function (err) {
@@ -40,11 +40,7 @@ exports.object_list = (req, res, next) => {
     });
 }
 
-exports.object_create = [
-  body("title", "title is required")
-      .trim()
-      .isLength({ min: 1 })
-      .escape(),
+exports.star_create = [
   body("name", "name is required")
       .trim()
       .isLength({ min: 1 })
@@ -77,8 +73,7 @@ exports.object_create = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const object = new Object({
-        title: req.body.title,
+      const star = new Star({
         name: req.body.name,
         type: req.body.type,
         reference: req.body.reference,
@@ -87,17 +82,17 @@ exports.object_create = [
         location: req.body.location,
         summary: req.body.summary, 
       });
-    // Try to check if it's never been created.
-    await object.save()
+    // Check if it's never been created.
+    await star.save()
      .then(() => {
       res.status(200).json({
-        message: "Object created",
-        object,
+        message: "Star created",
+        star,
       })
      })
      .catch((err) => {
       res.status(401).json({
-        message: "Object not created",
+        message: "Star not created",
         error: err.message,
       })
      })
@@ -105,11 +100,7 @@ exports.object_create = [
   }
 ]
 
-exports.object_update = [
-  body("title", "title is required")
-      .trim()
-      .isLength({ min: 1 })
-      .escape(),
+exports.star_update = [
   body("name", "name is required")
       .trim()
       .isLength({ min: 1 })
@@ -142,8 +133,7 @@ exports.object_update = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const object = new Object({
-        title: req.body.title,
+      const star = new Star({
         name: req.body.name,
         type: req.body.type,
         reference: req.body.reference,
@@ -153,16 +143,16 @@ exports.object_update = [
         summary: req.body.summary,
       });
 
-    await Object.findByIdAndUpdate(req.params.id, object, {} )
+    await Star.findByIdAndUpdate(req.params.id, star, {} )
      .then(() => {
       res.status(200).json({
-        message: "Object updated",
-        object,
+        message: "Star updated",
+        star,
       })
      })
      .catch((err) => {
       res.status(401).json({
-        message: "Object update failed",
+        message: "Star update failed",
         error: err.message,
       })
      })
@@ -170,9 +160,9 @@ exports.object_update = [
   }
 ]
 
-exports.object_delete =  async (req, res, next) => {
+exports.star_delete =  async (req, res, next) => {
   try {
-     await Object.findByIdAndRemove(req.params.objectid);
+     await Star.findByIdAndRemove(req.params.objectid);
       res.status(200).json({
           message: "Successful",
       });
